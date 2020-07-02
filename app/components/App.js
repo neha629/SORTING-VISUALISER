@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import Bars from "./Bars";
-
-const styles = {
-  header: {
-    color: "#333333",
-    fontSize: "50px",
-    alignContent: "center",
-    display: "flex",
-    justifyContent: "center",
-  },
-};
+import BubbleSort from "./Algorithms/BubbleSort";
+import SelectionSort from "./Algorithms/SelectionSort";
+import QuickSort from "./Algorithms/QuickSort";
+import MergeSort from "./Algorithms/MergeSort";
+import HeapSort from "./Algorithms/HeapSort";
+import './App.scss';
 
 function randomNumberGenerator(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -43,55 +39,16 @@ class App extends Component {
     super(props);
     this.state = { array: [] };
     this.resetArray = this.resetArray.bind(this);
-    this.bubbleSort = this.bubbleSort.bind(this);
-    this.selectionSort = this.selectionSort.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   } 
 
-  bubbleSort() {
-    const arr = this.state.array;
-    const n = arr.length;
-    const sortedArr = arr;
-    const animations = [];
-    for(let i=0;i<n-1;i++)
-    {
-      for(let j=0;j<n-i-1;j++)
-      {
-        if(sortedArr[j]>sortedArr[j+1])
-        {
-          const temp = sortedArr[j];
-          sortedArr[j] = sortedArr[j+1];
-          sortedArr[j+1] = temp;
-        }
-        animations.push([j,j+1,sortedArr[j],sortedArr[j+1]]);
-      }
-    }
-    changeColor(animations);
-  }
-
-  selectionSort() {
-    const arr = this.state.array;
-    const n = arr.length;
-    const sortedArr = arr;
-    const animations = []; 
-    for(let i=0;i<n-1;i++)
-    {
-      let min_idx = i;
-      for(let j=i+1;j<n;j++)
-      {
-        if(sortedArr[j]<sortedArr[min_idx])
-          min_idx = j;
-      }
-      const temp = sortedArr[i];
-      sortedArr[i] = sortedArr[min_idx];
-      sortedArr[min_idx] = temp;
-      animations.push([i,min_idx,sortedArr[i],sortedArr[min_idx]]);
-    }
+  handleClick(animations) {
     changeColor(animations);
   }
 
   resetArray() {
     const arr = [];
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 4; i++) {
       arr.push(randomNumberGenerator(5, 450));
     }
     this.setState({ array: arr });
@@ -103,22 +60,16 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <header style={styles.header}> SORTING VISUALISER </header>
+      <div className="container">
+        <header> SORTING VISUALISER </header>
         <Bars array={this.state.array} />
-        <footer
-          style={{
-            display: "flex",
-            alignContent: "center",
-            justifyContent: "center",
-          }}
-        >
-          <button onClick={this.resetArray}>NEW ARRAY</button>
-          <button onClick={this.bubbleSort}>BUBBLE SORT</button>
-          <button onClick={this.selectionSort}>SELECTION SORT</button>
-          <button>MERGE SORT</button>
-          <button>QUICK SORT</button>
-          <button>HEAP SORT</button>
+        <footer>
+          <button onClick={this.resetArray} onMouseOver={this.mouseover}>NEW ARRAY</button>
+          <BubbleSort  array = {this.state.array} handleClick={this.handleClick}/>
+          <SelectionSort array = {this.state.array} handleClick={this.handleClick}/>
+          <QuickSort array = {this.state.array} handleClick={this.handleClick}/>
+          <MergeSort array = {this.state.array} handleClick={this.handleClick}/>
+          <HeapSort array = {this.state.array} handleClick={this.handleClick}/>
         </footer>
       </div>
     );

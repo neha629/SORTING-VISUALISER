@@ -1,0 +1,31 @@
+header {
+    color: #333333;
+    font-size: 50px;
+    align-content: center;
+    display: flex;
+    justify-content: center;
+}
+footer {
+    margin: 10px 100px 10px 100px;
+    padding-left: 50px;
+
+}
+footer > * {
+    color: #333333;
+    display: inline-block;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+    margin: 0 10px auto 10px;
+}
+button {
+  // background-color: #333333;
+  // color: white;
+  font-size: 0.9em;
+  transition-duration: 0.4s;
+  border: 2px solid #555555;
+}
+button .active {
+  background-color: #555555;
+  color: white;
+} 
